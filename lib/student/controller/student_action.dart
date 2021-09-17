@@ -2,7 +2,9 @@ import 'package:async_redux/async_redux.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:estudante/app_state.dart';
 import 'package:estudante/course/controller/course_action.dart';
+import 'package:estudante/module/controller/module_action.dart';
 import 'package:estudante/student/controller/student_model.dart';
+import 'package:estudante/student/controller/student_state.dart';
 
 class GetStudentDocsStudentAction extends ReduxAction<AppState> {
   @override
@@ -30,5 +32,27 @@ class GetStudentDocsStudentAction extends ReduxAction<AppState> {
 
   void after() {
     dispatch(GetCourseDocsCourseAction());
+  }
+}
+
+class SetStudentStudentAction extends ReduxAction<AppState> {
+  final String courseId;
+  SetStudentStudentAction({
+    required this.courseId,
+  });
+  @override
+  AppState reduce() {
+    StudentModel? studentModel =
+        StudentState.selectStudentByCourseId(state, courseId);
+
+    return state.copyWith(
+      studentState: state.studentState.copyWith(
+        student: studentModel,
+      ),
+    );
+  }
+
+  void after() {
+    dispatch(GetModuleDocsModuleAction());
   }
 }

@@ -3,26 +3,30 @@ import 'package:estudante/student/controller/student_model.dart';
 import 'package:flutter/foundation.dart';
 
 class StudentState {
-  final StudentModel? studentCurrent;
+  final StudentModel? student;
   final List<StudentModel>? studentList;
   static StudentModel? selectStudentOfList(AppState state, String userId) =>
       state.studentState.studentList!
           .firstWhere((element) => element.userId == userId);
+  static StudentModel? selectStudentByCourseId(
+          AppState state, String courseId) =>
+      state.studentState.studentList!
+          .firstWhere((element) => element.courseId == courseId);
   StudentState({
-    this.studentCurrent,
+    this.student,
     this.studentList,
   });
   factory StudentState.initialState() => StudentState(
-        studentCurrent: null,
+        student: null,
         studentList: [],
       );
 
   StudentState copyWith({
-    StudentModel? studentCurrent,
+    StudentModel? student,
     List<StudentModel>? studentList,
   }) {
     return StudentState(
-      studentCurrent: studentCurrent ?? this.studentCurrent,
+      student: student ?? this.student,
       studentList: studentList ?? this.studentList,
     );
   }
@@ -35,10 +39,10 @@ class StudentState {
     if (identical(this, other)) return true;
 
     return other is StudentState &&
-        other.studentCurrent == studentCurrent &&
+        other.student == student &&
         listEquals(other.studentList, studentList);
   }
 
   @override
-  int get hashCode => studentCurrent.hashCode ^ studentList.hashCode;
+  int get hashCode => student.hashCode ^ studentList.hashCode;
 }

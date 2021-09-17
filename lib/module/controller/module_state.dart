@@ -1,40 +1,44 @@
+import 'package:estudante/app_state.dart';
 import 'package:estudante/module/controller/module_model.dart';
 import 'package:flutter/foundation.dart';
+import 'package:collection/collection.dart';
 
 class ModuleState {
-  final ModuleModel? moduleCurrent;
+  final ModuleModel? module;
   final List<ModuleModel>? moduleList;
+  static ModuleModel? selectModule(AppState state, String moduleId) =>
+      state.moduleState.moduleList!
+          .firstWhereOrNull((element) => element.id == moduleId);
   ModuleState({
-    this.moduleCurrent,
+    this.module,
     this.moduleList,
   });
   factory ModuleState.initialState() => ModuleState(
-        moduleCurrent: null,
+        module: null,
         moduleList: [],
       );
   ModuleState copyWith({
-    ModuleModel? moduleCurrent,
+    ModuleModel? module,
     List<ModuleModel>? moduleList,
   }) {
     return ModuleState(
-      moduleCurrent: moduleCurrent ?? this.moduleCurrent,
+      module: module ?? this.module,
       moduleList: moduleList ?? this.moduleList,
     );
   }
 
   @override
-  String toString() =>
-      'ModuleState(moduleCurrent: $moduleCurrent, moduleList: $moduleList)';
+  String toString() => 'ModuleState(module: $module, moduleList: $moduleList)';
 
   @override
   bool operator ==(Object other) {
     if (identical(this, other)) return true;
 
     return other is ModuleState &&
-        other.moduleCurrent == moduleCurrent &&
+        other.module == module &&
         listEquals(other.moduleList, moduleList);
   }
 
   @override
-  int get hashCode => moduleCurrent.hashCode ^ moduleList.hashCode;
+  int get hashCode => module.hashCode ^ moduleList.hashCode;
 }

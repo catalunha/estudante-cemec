@@ -6,8 +6,8 @@ import 'package:collection/collection.dart';
 
 class CourseState {
   final List<CourseModel>? courseList;
-  final CourseModel? course;
   final List<UserModel>? coordinatorList;
+  final CourseModel? course;
   final UserModel? coordinator;
   final List<UserModel>? collegiate;
 
@@ -19,6 +19,9 @@ class CourseState {
       state.courseState.courseList!
           .where((element) => element.isArchivedByAdm == true)
           .toList();
+  static CourseModel? selectCourse(AppState state, String courseId) =>
+      state.courseState.courseList!
+          .firstWhereOrNull((element) => element.id == courseId);
   static UserModel? selectTeacherInCollegiate(
           AppState state, String teacherId) =>
       state.courseState.collegiate!
