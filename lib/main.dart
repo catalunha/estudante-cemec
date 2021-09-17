@@ -27,7 +27,7 @@ class MyApp extends StatelessWidget {
         title: 'CEMEC Estudante',
         theme: ThemeData(
           primaryColor: AppColors.primary,
-          primarySwatch: Colors.orange,
+          primarySwatch: AppColors.swatch,
         ),
         navigatorKey: navigatorKey,
         routes: Routes.routes,
